@@ -5,12 +5,36 @@ void converterParaFormatoCorreto(char *str) {
     int i = 0;
 
     while (str[i] != '\0') {
-        // Converte todas as letras para minusculas
+        // Converte todas as letras para minúsculas
         if (str[i] >= 'A' && str[i] <= 'Z') {
             str[i] = str[i] - 'A' + 'a';
         }
         i++;
     }
+}
+
+int validarPlaca(char *placa) {
+    int tamanho = strlen(placa);
+
+    // Verifica se a placa tem 7 ou 8 dígitos
+    if (tamanho != 7 && tamanho != 8) {
+        printf("Placa invalida\n");
+        return 0;
+    }
+
+    // Verifica se há hífen na posição correta (se presente)
+    if (tamanho == 8 && placa[3] != '-') {
+        printf("Placa invalida\n");
+        return 0;
+    }
+
+    // Verifica se há exatamente 7 caracteres e não há hífen
+    if (tamanho == 7 && placa[2] == '-') {
+        printf("Placa invalida\n");
+        return 0;
+    }
+
+    return 1;
 }
 
 int main() {
@@ -22,16 +46,15 @@ int main() {
     scanf("%s", placa);
     scanf("%s", dia_semana);
 
-    // Verificacao do formato da placa
-    if (strlen(placa) != 7 && strlen(placa) != 8) {
-        printf("Placa invalida\n");
+    // Validar a placa
+    if (!validarPlaca(placa)) {
         valido = 0;
     }
 
     // Corrigir o formato do dia da semana
     converterParaFormatoCorreto(dia_semana);
 
-    // Verificacao do formato do dia da semana
+    // Verificação do formato do dia da semana
     if (strcmp(dia_semana, "segunda-feira") != 0 && strcmp(dia_semana, "terca-feira") != 0 &&
         strcmp(dia_semana, "quarta-feira") != 0 && strcmp(dia_semana, "quinta-feira") != 0 &&
         strcmp(dia_semana, "sexta-feira") != 0 && strcmp(dia_semana, "sabado") != 0 &&
@@ -40,7 +63,7 @@ int main() {
         valido = 0;
     }
 
-    // Verificacao da restrição de circulacao
+    // Verificação da restrição de circulação
     if (valido) {
         int terminacao = placa[strlen(placa) - 1] - '0';
         if ((strcmp(dia_semana, "segunda-feira") == 0 && (terminacao == 0 || terminacao == 1)) ||
@@ -50,8 +73,7 @@ int main() {
             (strcmp(dia_semana, "sexta-feira") == 0 && (terminacao == 8 || terminacao == 9))) {
             printf("%s nao pode circular %s\n", placa, dia_semana);
         } else if (strcmp(dia_semana, "sabado") == 0 || strcmp(dia_semana, "domingo") == 0) {
-            
-printf("Nao ha proibicao no fim de semana\n");
+            printf("Nao ha proibicao no fim de semana\n");
         } else {
             printf("%s pode circular %s\n", placa, dia_semana);
         }
