@@ -1,14 +1,21 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 void converterParaFormatoCorreto(char *str) {
     int i = 0;
 
     while (str[i] != '\0') {
-        // Converte todas as letras para minúsculas
+        // Converte para minúsculas apenas se o caractere for uma letra maiúscula
         if (str[i] >= 'A' && str[i] <= 'Z') {
             str[i] = str[i] - 'A' + 'a';
         }
+        // Se o caractere for uma letra minúscula, imprime uma mensagem de erro e encerra o programa
+        else if (str[i] >= 'a' && str[i] <= 'z') {
+            printf("Dia da semana invalido\n");
+            exit(1);
+        }
+
         i++;
     }
 }
