@@ -17,7 +17,7 @@ int i = 0;
         
         else if(str[i] >= 'a' && str[i] <= 'z'){
             printf("Dia da semana invalido\n");
-            exit(1);
+            exit(0);
         }
         i++;
     }
