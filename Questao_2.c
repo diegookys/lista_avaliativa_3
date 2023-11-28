@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <math.h>
 
-int main() {
+int main(){
+    
     int meses;
-    double aporte, taxa, montante;
+    double aporteMensal, taxaMensal; 
+    double valorTotal;
 
-    scanf("%d %lf %lf", &meses, &aporte, &taxa);
+    scanf("%d %lf %lf", &meses, &aporteMensal, &taxaMensal);
 
-    for (int i = 1; i <= meses; i++) {
-        montante = aporte * (1 + taxa) * ((pow(1 + taxa, i)) - 1) / taxa;
-        printf("Montante ao fim do mes %d: R$ %.2lf\n", i, montante);
+    for(int i = 1; i <= meses; i++){
+        valorTotal = aporteMensal * (1 + taxaMensal) * ((pow(1 + taxaMensal, i)) - 1) / taxaMensal;
+        printf("Montante ao fim do mes %d: R$ %.2lf\n", i, valorTotal);
     }
 
     return 0;
