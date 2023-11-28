@@ -1,119 +1,101 @@
 #include <stdio.h>
 #include <string.h>
 
-int romanToDecimal(char romanNum[]) {
-    int decimalNum = 0;
-    int length = strlen(romanNum);
+int romanoParaDec(char numeroRomano[]){
+    
+int numeroDecimal = 0;
+int length = strlen(numeroRomano);
 
-    for (int i = 0; i < length; i++) {
-        if (romanNum[i] == 'M') {
-            decimalNum += 1000;
-        }
-        else if (romanNum[i] == 'D') {
-            decimalNum += 500;
-        }
-        else if (romanNum[i] == 'C') {
-            if (romanNum[i + 1] == 'M') {
-                decimalNum += 900;
-                i++;
+    for(int i = 0; i < length; i++){
+        if(numeroRomano[i] == 'M'){numeroDecimal += 1000;
+        }else if(numeroRomano[i] == 'D'){
+            numeroDecimal += 500;
+        }else if(numeroRomano[i] == 'C'){
+        
+        if(numeroRomano[i + 1] == 'M'){numeroDecimal += 900;
+            i++;
+        }else if(numeroRomano[i + 1] == 'D'){numeroDecimal += 400;
+            i++;
+        }else{numeroDecimal += 100;
             }
-            else if (romanNum[i + 1] == 'D') {
-                decimalNum += 400;
-                i++;
+        }else if(numeroRomano[i] == 'L'){numeroDecimal += 50;
+        }else if(numeroRomano[i] == 'X'){
+        
+        if (numeroRomano[i + 1] == 'C'){numeroDecimal += 90;
+            i++;
+        }else if(numeroRomano[i + 1] == 'L'){numeroDecimal += 40;
+            i++;
+        }else{numeroDecimal += 10;
             }
-            else {
-                decimalNum += 100;
-            }
-        }
-        else if (romanNum[i] == 'L') {
-            decimalNum += 50;
-        }
-        else if (romanNum[i] == 'X') {
-            if (romanNum[i + 1] == 'C') {
-                decimalNum += 90;
-                i++;
-            }
-            else if (romanNum[i + 1] == 'L') {
-                decimalNum += 40;
-                i++;
-            }
-            else {
-                decimalNum += 10;
-            }
-        }
-        else if (romanNum[i] == 'V') {
-            decimalNum += 5;
-        }
-        else if (romanNum[i] == 'I') {
-            if (romanNum[i + 1] == 'X') {
-                decimalNum += 9;
-                i++;
-            }
-            else if (romanNum[i + 1] == 'V') {
-                decimalNum += 4;
-                i++;
-            }
-            else {
-                decimalNum += 1;
+        }else if(numeroRomano[i] == 'V'){numeroDecimal += 5;
+        }else if(numeroRomano[i] == 'I'){
+        
+        if (numeroRomano[i + 1] == 'X'){numeroDecimal += 9;
+            i++;
+        }else if(numeroRomano[i + 1] == 'V'){numeroDecimal += 4;
+            i++;
+        }else{numeroDecimal += 1;
             }
         }
     }
 
-    return decimalNum;
+    return numeroDecimal;
 }
 
-void decimalToBinary(int decimalNum) {
-    int binaryNum[32];
-    int i = 0;
+void decParaBinario(int numeroDecimal){
 
-    while (decimalNum > 0) {
-        binaryNum[i] = decimalNum % 2;
-        decimalNum = decimalNum / 2;
+int numeroBinario[32];
+int i = 0;
+
+    while(numeroDecimal > 0){
+        numeroBinario[i] = numeroDecimal % 2;
+        numeroDecimal = numeroDecimal / 2;
         i++;
     }
 
-    for (int j = i - 1; j >= 0; j--) {
-        printf("%d", binaryNum[j]);
+    for(int j = i - 1; j >= 0; j--){
+        printf("%d", numeroBinario[j]);
     }
 }
 
-void decimalToHexadecimal(int decimalNum) {
-    char hexadecimalNum[32];
-    int i = 0;
+void decimalParaHex(int numeroDecimal){
+    
+char numeroHex[32];
+int i = 0;
 
-    while (decimalNum > 0) {
-        int rem = decimalNum % 16;
+    while(numeroDecimal > 0){
+        int rem = numeroDecimal % 16;
 
-        if (rem < 10) {
-            hexadecimalNum[i] = rem + '0';
+        if(rem < 10){
+            numeroHex[i] = rem + '0';
+        }else{
+            numeroHex[i] = rem - 10 + 'a';
         }
-        else {
-            hexadecimalNum[i] = rem - 10 + 'a';
-        }
 
-        decimalNum = decimalNum / 16;
+        numeroDecimal = numeroDecimal / 16;
         i++;
     }
 
-    for (int j = i - 1; j >= 0; j--) {
-        printf("%c", hexadecimalNum[j]);
+    for(int j = i - 1; j >= 0; j--){
+        printf("%c", numeroHex[j]);
     }
 }
 
-int main() {
-    char romanNum[13];
-    scanf("%s", romanNum);
+int main(){
+    
+    char numeroRomano[13];
+    scanf("%s", numeroRomano);
 
-    int decimalNum = romanToDecimal(romanNum);
+    int numeroDecimal = romanoParaDec(numeroRomano);
 
-    printf("%s na base 2: ", romanNum);
-    decimalToBinary(decimalNum);
+    printf("%s na base 2: ", numeroRomano);
+    decParaBinario(numeroDecimal);
     printf("\n");
 
-    printf("%s na base 10: %d\n", romanNum, decimalNum);
+    printf("%s na base 10: %d\n", numeroRomano, numeroDecimal);
 
-    printf("%s na base 16: ", romanNum);
-    decimalToHexadecimal(decimalNum);
+    printf("%s na base 16: ", numeroRomano);
+    decimalParaHex(numeroDecimal);
     printf("\n");
 
     return 0;
